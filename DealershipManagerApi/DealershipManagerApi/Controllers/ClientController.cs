@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DealershipManagerApi.Controllers
 {
     [ApiController]
+
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
