@@ -29,14 +29,9 @@ namespace DealershipManagerApi.Repositories
             return _cars;
         }
 
-        //public void Update(Guid carId, Car car)
-        //{
-           
-        //}
-
         public void Update(Guid carId, Car car)
         {
-            var carToUpdate = _cars.FirstOrDefault(c => c.Id == car.Id);
+            var carToUpdate = _cars.FirstOrDefault(c => c.Id == carId);
             if (carToUpdate != null)
             {
                 carToUpdate.Brand = car.Brand;
