@@ -12,7 +12,7 @@ namespace DealershipManagerApi.Middleware
 			}
 			catch (Exception ex)
 			{
-                HandleException(context, ex);
+               await HandleException(context, ex);
 			}
         }
 		private static async Task HandleException(HttpContext context, Exception ex)

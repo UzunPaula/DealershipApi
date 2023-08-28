@@ -1,4 +1,5 @@
-﻿using DealershipManagerApi.Models;
+﻿using DealershipManagerApi.DTOs;
+using DealershipManagerApi.Models;
 using DealershipManagerApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace DealershipManagerApi.Controllers
         //Add Car: POST /cars
         [HttpPost]
         [Route("cars")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(AddCarDto car)
         {
             _carService.Add(car);
 
@@ -45,7 +46,7 @@ namespace DealershipManagerApi.Controllers
         //Update car: PUT /cars/{id}
         [HttpPut]
         [Route("cars/{carId}")]
-        public IActionResult Update(Guid carId, Car car)
+        public IActionResult Update(Guid carId, UpdateCarDto car)
         {
             _carService.Update(carId, car);
             return Ok();
