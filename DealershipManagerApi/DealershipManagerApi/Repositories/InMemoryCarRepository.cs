@@ -38,7 +38,7 @@ namespace DealershipManagerApi.Repositories
                 carToUpdate.Model = car.Model;
                 carToUpdate.Category = car.Category;
                 carToUpdate.Price = car.Price;
-                carToUpdate.ProductionYear = car.ProductionYear;
+                carToUpdate.ProdYear = car.ProdYear;
             }
         }
     }
