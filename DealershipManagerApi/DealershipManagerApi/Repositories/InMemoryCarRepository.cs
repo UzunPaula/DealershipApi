@@ -1,4 +1,5 @@
-﻿using DealershipManagerApi.Models;
+﻿using DealershipManagerApi.Data;
+using DealershipManagerApi.Models;
 
 namespace DealershipManagerApi.Repositories
 {
@@ -27,6 +28,27 @@ namespace DealershipManagerApi.Repositories
         public List<Car> GetAll()
         {
             return _cars;
+        }
+
+        public List<Car> GetByFilter(string model, string brand, int productionYear)
+        {
+            var filter = _cars.AsQueryable();
+
+            if (model is not null)
+            {
+                filter = filter.Where(c => c.Model == model);
+            } 
+            if (brand is not null)
+            {
+                filter = filter.Where(c => c.Brand == brand);
+            }
+            if (productionYear != 0)
+            {
+                filter = filter.Where(c => c.ProdYear == productionYear);
+            }
+            var cars = filter.ToList();
+
+            return cars;
         }
 
         public void Update(Car car)
