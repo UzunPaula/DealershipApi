@@ -2,6 +2,7 @@
 - Install Sql Server Management Studio
 - Install Entity Framework NuGet package
 - Install Entity FrameworkCore.SqlServer NuGet package
+      (Other options: Dapper, Microsoft.Data.SqlClient)
 - Install EntityFramework.Tools
 - Add connection string to appsettings.js
 - Add ApplicationDbContext (abstractization over SQL Database)

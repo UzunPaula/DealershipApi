@@ -50,7 +50,7 @@ namespace DealershipManagerApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("DealershipManagerApi.Models.Client", b =>
@@ -68,7 +68,7 @@ namespace DealershipManagerApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("DealershipManagerApi.Models.Sale", b =>
@@ -95,7 +95,7 @@ namespace DealershipManagerApi.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Sales");
+                    b.ToTable("Sales", (string)null);
                 });
 
             modelBuilder.Entity("DealershipManagerApi.Models.Sale", b =>

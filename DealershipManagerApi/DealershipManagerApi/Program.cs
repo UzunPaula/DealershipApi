@@ -16,13 +16,16 @@ builder.Services.AddScoped<ICarRepository, SqlCarRepository>();
 builder.Services.AddScoped<ICarValidator, CarValidator>();
 
 builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IClientRepository, InMemoryClientRepository>();
+//builder.Services.AddScoped<IClientRepository, InMemoryClientRepository>();
+builder.Services.AddScoped<IClientRepository, SqlClientRepository>();
 builder.Services.AddScoped<IClientValidator, ClientValidator>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddScoped<ISaleService, SaleService>();
-builder.Services.AddScoped<ISaleRepository, InMemorySaleRepository>();
+//builder.Services.addscoped<ISaleRepository, InMemorySaleRepository>();
+builder.Services.AddScoped<ISaleRepository, SqlSaleRepository>();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
