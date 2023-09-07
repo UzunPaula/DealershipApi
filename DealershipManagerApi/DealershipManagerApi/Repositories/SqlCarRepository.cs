@@ -64,9 +64,11 @@ namespace DealershipManagerApi.Repositories
             return _applicationDbContext.Cars.FirstOrDefault(c => c.Id == id);
         }
 
-        public List<Car> GetAll()
+        public List<Car> GetAll(bool isSold)
         {
-            return _applicationDbContext.Cars.ToList();
+            return _applicationDbContext.Cars
+                .Where(c => c.IsSold == isSold)
+                .ToList();
 
             /* var cars = _applicationDbContext.Cars
                 .Where(c => ids.Contains(c.Id))

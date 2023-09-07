@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DealershipManagerApi.Controllers
 {
     [ApiController]
-    public class SaleController :ControllerBase
+    public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;
 
@@ -13,7 +13,7 @@ namespace DealershipManagerApi.Controllers
         {
             _saleService = saleService;
         }
-         
+          
         [HttpPost] //POST api/sales
         [Route("sales")]
         public IActionResult Add(AddSaleDto sale)
@@ -22,5 +22,13 @@ namespace DealershipManagerApi.Controllers
 
             return Ok();
         }
-    }
+
+        [HttpGet]
+        [Route("sales")]
+        public IActionResult GetAll(DateTime startDate, DateTime endDate)
+        {
+            var result = _saleService.GetAll(startDate, endDate);
+            return Ok(result);
+        }
+    } 
 }

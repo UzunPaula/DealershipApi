@@ -7,15 +7,18 @@ namespace DealershipManagerApi.Services
     public class SaleService : ISaleService
     {
         private readonly ISaleRepository _saleRepository;
+        private readonly ITimeProvider _timeProvider;
         private readonly ICarRepository _carRepository;
         private readonly IClientRepository _clientRepository;
 
         public SaleService(
             ICarRepository carRepository,
             IClientRepository clientRepository,
-            ISaleRepository saleRepository)
+            ISaleRepository saleRepository,
+            ITimeProvider timeProvider)
         {
             _saleRepository = saleRepository;
+            _timeProvider = timeProvider;
             _carRepository = carRepository;
             _clientRepository = clientRepository;
         }
@@ -32,7 +35,7 @@ namespace DealershipManagerApi.Services
                 var sale = new Sale
                 {
                     Id = Guid.NewGuid(),
-                    Date = DateTime.UtcNow,
+                    Date = _timeProvider.UtcNow,
                     Car = car,
                     Client = client,
                     FinalPrice = saleDto.FinalPrice,
@@ -49,9 +52,9 @@ namespace DealershipManagerApi.Services
             }
         }
 
-        public List<Sale> GetAll()
+        public List<Sale> GetAll(DateTime startDate, DateTime endDate)
         {
-            return _saleRepository.GetAll();
+            return _saleRepository.GetAll(startDate, endDate);
         }
 
         private bool IsValidCar(Car? car)
