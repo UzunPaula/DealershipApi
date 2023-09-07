@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using DealershipManager.Tests.Exceptions;
+using DealershipManagerApi.Models;
+using Newtonsoft.Json;
 
 namespace DealershipManagerApi.Middleware
 {
@@ -17,15 +19,32 @@ namespace DealershipManagerApi.Middleware
         }
 		private static async Task HandleException(HttpContext context, Exception ex)
 		{
-			context.Response.StatusCode = 500;
-            context.Response.ContentType = "application/json" ;
-			var error = new
-			{
-                Message = "An error occurred while processing your request. ",
-                ExceptionMessage = ex.Message,
-            };
+            var exceptionType = ex.GetType();
+            context.Response.ContentType = "application/json";
 
-            var jsonResponse = JsonConvert.SerializeObject(error);
+            var errorMessage = new ErrorMessage();
+
+            //var error = new
+            //{
+            //    Message = "An error occurred while processing your request. ",
+            //    ExceptionMessage = ex.Message,
+            //}; 
+
+            errorMessage.Message = ex.Message;
+ 
+            errorMessage.ErrorCode = 500; 
+
+            if (exceptionType == typeof(NotFoundException))
+            {
+                errorMessage.ErrorCode = 404;
+            }
+            else if (exceptionType == typeof(ValidationException))
+            {
+                errorMessage.ErrorCode = 400;
+            }
+            context.Response.StatusCode = errorMessage.ErrorCode;
+
+            var jsonResponse = JsonConvert.SerializeObject(errorMessage);
             await context.Response.WriteAsync(jsonResponse);
         }
     }

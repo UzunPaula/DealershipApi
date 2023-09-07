@@ -1,4 +1,5 @@
-﻿using DealershipManagerApi.DTOs;
+﻿using DealershipManager.Tests.Exceptions;
+using DealershipManagerApi.DTOs;
 using DealershipManagerApi.Models;
 using DealershipManagerApi.Repositories;
 using System.Net;
@@ -20,9 +21,10 @@ namespace DealershipManagerApi.Services
         public void Add(AddCarDto carDto)
         {
             var isValid = _carValidator.IsValidAddCarDto(carDto);
+
             if (!isValid)
             {
-                throw new ArgumentException("Invalid car information. Could not add the car");
+                throw new ValidationException("Invalid car information. Could not add the car");
             }
 
             var car = new Car
@@ -45,7 +47,13 @@ namespace DealershipManagerApi.Services
 
         public Car? Get(Guid id)
         {
-            return _carRepository.Get(id);
+            var car = _carRepository.Get(id);
+
+            if (car is null)
+            {
+                throw new NotFoundException(id);
+            }
+            return car; 
         }
 
         public List<Car> GetAll(bool isSold)
@@ -56,9 +64,10 @@ namespace DealershipManagerApi.Services
         public void Update(Guid carId, UpdateCarDto carDto)
         {
             var isValid = _carValidator.IsValidUpdateCarDto(carDto);
+
             if (!isValid)
             {
-                throw new ArgumentException("Invalid car information. Could not add the car");
+                throw new ValidationException("Invalid car information. Could not add the car");
             }
 
             var car = new Car

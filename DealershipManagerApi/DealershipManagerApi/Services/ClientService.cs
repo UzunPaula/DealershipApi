@@ -1,6 +1,7 @@
 ﻿using DealershipManagerApi.DTOs;
 using DealershipManagerApi.Models;
 using DealershipManagerApi.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace DealershipManagerApi.Services
 {
@@ -21,7 +22,7 @@ namespace DealershipManagerApi.Services
             var isValid = _clientValidator.IsValidAddClientDto(clientDto);
             if (!isValid)
             {
-                throw new ArgumentException("Invalid client information. Could not add a client");
+                throw new ValidationException("Invalid client information. Could not add a client");
             }
             var client = new Client
             {

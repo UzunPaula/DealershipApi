@@ -1,6 +1,7 @@
 ﻿using DealershipManagerApi.DTOs;
 using DealershipManagerApi.Models;
 using DealershipManagerApi.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace DealershipManagerApi.Services
 {
@@ -48,7 +49,7 @@ namespace DealershipManagerApi.Services
             }
             else
             {
-                throw new ArgumentException("Invalid sale data. Could not register a sale.");
+                throw new ValidationException("Invalid sale data. Could not register a sale.");
             }
         }
 
