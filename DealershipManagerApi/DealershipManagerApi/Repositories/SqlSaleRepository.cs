@@ -1,5 +1,6 @@
 ﻿using DealershipManagerApi.Data;
 using DealershipManagerApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DealershipManagerApi.Repositories
 {
@@ -16,10 +17,14 @@ namespace DealershipManagerApi.Repositories
             _appDbContext.Sales.Add(sale);
             _appDbContext.SaveChanges();
         }
-
-        public List<Sale> GetAll()
+         
+        public List<Sale> GetAll(DateTime startDate, DateTime endDate)
         {
-            return _appDbContext.Sales.ToList();
+            return _appDbContext.Sales
+                .Where(s => s.Date >= startDate && s.Date <= endDate)
+                .Include(s => s.Car) //include obiectele imbricate
+                .Include(s => s.Client)
+                .ToList();
         }
     }
 }

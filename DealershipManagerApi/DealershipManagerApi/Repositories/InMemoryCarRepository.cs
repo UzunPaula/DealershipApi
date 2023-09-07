@@ -25,9 +25,9 @@ namespace DealershipManagerApi.Repositories
             return _cars.FirstOrDefault(c => c.Id == id); 
         }
 
-        public List<Car> GetAll()
+        public List<Car> GetAll(bool isSold)
         {
-            return _cars;
+            return _cars.Where(c=>c.IsSold == isSold).ToList();
         }
 
         public List<Car> GetByFilter(string model, string brand, int productionYear)
